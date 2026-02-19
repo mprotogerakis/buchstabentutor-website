@@ -8,6 +8,7 @@
     <link rel="canonical" href="https://www.buchstabentutor.de/kontakt/" />
     <meta name="robots" content="index,follow" />
     <link rel="stylesheet" href="/styles.css" />
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
     <script src="/site.js" defer></script>
   </head>
   <body>
@@ -56,6 +57,11 @@
         <p class="hp-field" aria-hidden="true">
           <label for="website">Website</label><br />
           <input id="website" name="website" type="text" tabindex="-1" autocomplete="off" />
+        </p>
+
+        <p>
+          <span>Spam-Schutz</span><br />
+          <span id="turnstile-widget"></span>
         </p>
 
         <button class="nav-link" type="submit">Nachricht senden</button>

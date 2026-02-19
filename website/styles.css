@@ -88,6 +88,11 @@ nav {
   background: var(--accent-soft);
 }
 
+.nav-link:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
 .hero,
 .card {
   background: var(--paper);

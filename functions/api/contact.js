@@ -27,6 +27,38 @@ function isValidEmail(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
+async function verifyTurnstile(env, { token, remoteIp }) {
+  const secret = env.TURNSTILE_SECRET_KEY;
+  if (!secret) {
+    throw new Error("Turnstile ist nicht konfiguriert.");
+  }
+
+  const body = new URLSearchParams();
+  body.set("secret", secret);
+  body.set("response", token);
+  if (remoteIp) {
+    body.set("remoteip", remoteIp);
+  }
+
+  const response = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
+    method: "POST",
+    headers: {
+      "content-type": "application/x-www-form-urlencoded",
+    },
+    body: body.toString(),
+  });
+
+  if (!response.ok) {
+    throw new Error("Turnstile-Prüfung fehlgeschlagen.");
+  }
+
+  const result = await response.json();
+  if (!result.success) {
+    const codes = Array.isArray(result["error-codes"]) ? result["error-codes"].join(",") : "";
+    throw new Error(`Turnstile abgelehnt (${codes || "unknown"}).`);
+  }
+}
+
 async function sendViaResend(env, { name, email, message, requestUrl }) {
   const apiKey = env.RESEND_API_KEY;
   const to = env.CONTACT_TO_EMAIL;
@@ -92,6 +124,7 @@ export async function onRequestPost(context) {
   const name = sanitize(formData.get("name"));
   const email = sanitize(formData.get("email"));
   const message = sanitize(formData.get("message"));
+  const turnstileToken = sanitize(formData.get("cf-turnstile-response"));
 
   if (!name || !email || !message) {
     return errorResponse("Bitte alle Pflichtfelder ausfüllen.", 400);
@@ -105,7 +138,16 @@ export async function onRequestPost(context) {
     return errorResponse("Bitte gültige E-Mail-Adresse angeben.", 400);
   }
 
+  if (!turnstileToken) {
+    return errorResponse("Bitte Spam-Schutz bestätigen.", 400);
+  }
+
   try {
+    await verifyTurnstile(env, {
+      token: turnstileToken,
+      remoteIp: request.headers.get("cf-connecting-ip") || "",
+    });
+
     await sendViaResend(env, {
       name,
       email,

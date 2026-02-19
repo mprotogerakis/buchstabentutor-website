@@ -15,3 +15,5 @@ Statische Website + Kontaktformular-Funktion für Cloudflare Pages.
 - `RESEND_API_KEY`
 - `CONTACT_TO_EMAIL`
 - `CONTACT_FROM_EMAIL`
+- `TURNSTILE_SECRET_KEY`
+- `TURNSTILE_SITE_KEY`

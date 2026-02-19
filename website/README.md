@@ -10,7 +10,7 @@ Statische Seiten für:
 - Sicherheitsheader (`_headers`)
 - Functions-Routing (`_routes.json`)
 - `robots.txt`, `sitemap.xml`
-- Cloudflare Pages Function: `functions/api/contact.js`
+- Cloudflare Pages Functions: `functions/api/contact.js`, `functions/api/contact-config.js`
 
 ## Deployment mit Cloudflare Pages
 1. Cloudflare Pages Projekt mit diesem Git-Repository verbinden.
@@ -22,6 +22,8 @@ Statische Seiten für:
    - `RESEND_API_KEY`
    - `CONTACT_TO_EMAIL` (Zieladresse, z. B. `lernapps@icloud.com`)
    - `CONTACT_FROM_EMAIL` (verifizierte Senderadresse bei Resend)
+   - `TURNSTILE_SECRET_KEY`
+   - `TURNSTILE_SITE_KEY`
 
 ## Rechtliche Pflege
 - Inhalte in `impressum/index.html` und `datenschutz/index.html` regelmäßig prüfen.
