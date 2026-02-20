@@ -2,7 +2,11 @@
 
 ## Inhalt
 Statische Seiten für:
-- Startseite
+- Startseite (Lernapps-Übersicht)
+- App-Unterseiten:
+  - `/apps/buchstabentutor/`
+  - `/apps/gross-kleinschreibung/`
+  - `/apps/lesetutor/`
 - Impressum (`/impressum/`)
 - Datenschutzerklärung (`/datenschutz/`)
 - Kontakt (`/kontakt/`)
