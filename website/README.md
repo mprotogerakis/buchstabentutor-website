@@ -8,7 +8,11 @@ Statische Seiten für:
   - `/apps/gross-kleinschreibung/`
   - `/apps/lesetutor/`
 - Impressum (`/impressum/`)
-- Datenschutzerklärung (`/datenschutz/`)
+- Datenschutz-Übersicht (`/datenschutz/`)
+- App-spezifischer Datenschutz:
+  - `/datenschutz/buchstabentutor/`
+  - `/datenschutz/gross-kleinschreibung/`
+  - `/datenschutz/lesetutor/`
 - Kontakt (`/kontakt/`)
 - `404.html`
 - Sicherheitsheader (`_headers`)
